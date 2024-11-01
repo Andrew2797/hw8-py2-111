@@ -1,10 +1,14 @@
-{# "templates/index.html" #}
 {% extends "_base.html" %}
 {% block content %}
 <h1><p>Пропонуємо таку піцу: <em>{{ pizza_name }}</em></p></h1>
-<a type="button", href="/menu"><em>Перейти в Мега меню</em></button>
-{% endblock content %}
+<a type="button" href="/menu"><em>Перейти в Мега меню</em></a>
 
+<!-- Add this button to navigate to the weather page -->
+<form action="{{ url_for('pizzas.index') }}" method="get">
+    <button type="submit">Перейти до погоди</button>
+</form>
+
+{% endblock content %}
 {% for pizza in pizzas %}
 <tr>
     <td>{{ pizza.name }}</td>
