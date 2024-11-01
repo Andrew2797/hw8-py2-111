@@ -1,0 +1,22 @@
+{% extends "_base.html" %}
+{% block content %}
+<h1>Редагувати Піцу: {{ pizza.name }}</h1>
+<form method="POST">
+    <label for="name">Назва:</label>
+    <input type="text" id="name" name="name" value="{{ pizza.name }}">
+    
+    <label for="price">Ціна:</label>
+    <input type="text" id="price" name="price" value="{{ pizza.price }}">
+    
+    <label for="ingredients">Інгредієнти:</label>
+    <select multiple name="ingredients">
+        {% for ingredient in ingredients %}
+            <option value="{{ ingredient.id }}" {% if ingredient in pizza.ingredients %}selected{% endif %}>
+                {{ ingredient.name }}
+            </option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit">Зберегти</button>
+</form>
+{% endblock %}
