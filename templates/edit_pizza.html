@@ -1,22 +1,22 @@
+{# "templates/index.html" #}
 {% extends "_base.html" %}
 {% block content %}
-<h1>Редагувати Піцу: {{ pizza.name }}</h1>
-<form method="POST">
-    <label for="name">Назва:</label>
-    <input type="text" id="name" name="name" value="{{ pizza.name }}">
-    
-    <label for="price">Ціна:</label>
-    <input type="text" id="price" name="price" value="{{ pizza.price }}">
-    
-    <label for="ingredients">Інгредієнти:</label>
-    <select multiple name="ingredients">
-        {% for ingredient in ingredients %}
-            <option value="{{ ingredient.id }}" {% if ingredient in pizza.ingredients %}selected{% endif %}>
-                {{ ingredient.name }}
-            </option>
-        {% endfor %}
-    </select>
-    
-    <button type="submit">Зберегти</button>
-</form>
-{% endblock %}
+<h1><p>Пропонуємо таку піцу: <em>{{ pizza_name }}</em></p></h1>
+<a type="button", href="/menu"><em>Перейти в Мега меню</em></button>
+{% endblock content %}
+{% for pizza in pizzas %}
+<tr>
+    <td>{{ pizza.name }}</td>
+    <td>{{ pizza.price }} грн</td>
+    <td>
+        <form action="{{ url_for('pizzas.edit_pizza', id=pizza.id) }}" method="get">
+            <button type="submit">Редагувати</button>
+        </form>
+    </td>
+    <td>
+        <form action="{{ url_for('pizzas.delete_pizza', id=pizza.id) }}" method="post" onsubmit="return confirm('Ви впевнені, що хочете видалити піцу?');">
+            <button type="submit">Видалити</button>
+        </form>
+    </td>
+</tr>
+{% endfor %}
